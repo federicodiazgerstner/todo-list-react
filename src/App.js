@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Search from "./components/Search";
+import Button from "./components/Button";
+import List from "./components/List";
+import { useState } from "react";
 
 function App() {
+  const [itemValue, setItemValue] = useState("");
+  const [items, setItems] = useState([]);
+
+  function handleChange(inputValue) {
+    setItemValue(inputValue);
+  }
+
+  function handleClick() {
+    if (itemValue !== "") {
+      setItems([...items, itemValue]);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search handleCallback={handleChange} />
+      <Button handleCallback={handleClick} />
+      <List values={items} />
     </div>
   );
 }
